@@ -3,8 +3,15 @@ import './LoginPage.css';
 import cowLogo from './assets/cow-logo.png';
 import cowSilhouette from './assets/cow-silhouette.png';
 import googleLogo from './assets/google-logo.png';
+import { useEffect } from 'react';
 
 function LoginPage() {
+  useEffect(() => {
+  fetch("http://localhost:5000/auth/user", { credentials: "include" })
+    .then(res => res.json())
+    .then(data => console.log("Logged in user:", data));
+}, []);
+
   return (
     <div className="login-page">
       <div className="login-container">
@@ -29,9 +36,16 @@ function LoginPage() {
               <span>→</span>
             </button>
           </form>
-          <button className="social-button">
-            <img src={googleLogo} alt="Google" /> Sign in with Google
-          </button>
+      <button
+  className="social-button"
+  onClick={() => {
+    window.location.href = "http://localhost:5000/auth/google"; 
+  }}
+>
+  <img src={googleLogo} alt="Google" /> Sign in with Google
+</button>
+
+
           <button className="social-button">
             Sign in with mobile number
           </button>
